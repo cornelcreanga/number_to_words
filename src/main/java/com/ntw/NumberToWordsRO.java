@@ -124,20 +124,21 @@ public class NumberToWordsRO implements NumberToWords {
         BigDecimal floatingPart = number.setScale(2, RoundingMode.HALF_EVEN).remainder(BigDecimal.ONE);
         BigDecimal fixedPart = number.subtract(number.remainder(BigDecimal.ONE));
         String s = trillions(fixedPart.longValue());
-        if (fixedPart.intValue() <= 19)
-            s += " " + RON;
-        else
-            s += " de " + RON;
+//        if (fixedPart.intValue() <= 19)
+//            s += " " + RON;
+//        else
+//            s += " de " + RON;
         if (floatingPart.doubleValue() != 0) {
             int val = floatingPart.multiply(new BigDecimal(HUNDRED)).intValue();
-            s = s + " și " + convert(val);
-            if (val == 1)
-                s += " " + BAN;
-            else if (val <= 19)
-                s += " " + BAN + "i";
-            else
-                s += " de " + BAN + "i";
+            s = s + " virgulă " + convert(val);
         }
+//            if (val == 1)
+//                s += " " + BAN;
+//            else if (val <= 19)
+//                s += " " + BAN + "i";
+//            else
+//                s += " de " + BAN + "i";
+//        }
         return s;
     }
 
@@ -175,7 +176,7 @@ public class NumberToWordsRO implements NumberToWords {
             return "un trilion" + toBillions(n);
         if ((n > 1_999_999_999_999l) && (n < 2_999_999_999_999l))
             return "două trilioane" + toBillions(n);
-        return hundreds(n / (TRILLION)) + (n < 19_999_999_999_999l ? " trilioane" : " de trilioane") + toBillions(n);
+        return hundreds(n / (TRILLION)) + (n < 19_999_999_999_999l ? " bilioane" : " de bilioane") + toBillions(n);
     }
 
     private String billions(long n) {
